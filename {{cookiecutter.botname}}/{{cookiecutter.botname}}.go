@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/{{cookiecutter.githubname}}/{{cookiecutter.botname}}/commands"
 	"github.com/{{cookiecutter.githubname}}/{{cookiecutter.botname}}/bot"
 	"github.com/{{cookiecutter.githubname}}/{{cookiecutter.botname}}/icon"
