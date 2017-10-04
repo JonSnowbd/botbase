@@ -23,7 +23,14 @@ func init() {
 		log.Error(err)
 	}
 
+	var format = logging.MustStringFormatter(
+		`%{color}%{time:15:04:05.000} %{shortfunc} ▶ %{level:.4s} %{id:03x}%{color:reset} %{message}`,
+	)
+
 	stdBackend := logging.NewLogBackend(os.Stderr, "", 0)
 	fileBackend := logging.NewLogBackend(logfile, "", 0)
-	logging.SetBackend(stdBackend, fileBackend)
+
+	fstdBackend := logging.NewBackendFormatter(stdBackend, format)
+	ffileBackend := logging.NewBackendFormatter(fileBackend, format)
+	logging.SetBackend(fstdBackend, ffileBackend)
 }

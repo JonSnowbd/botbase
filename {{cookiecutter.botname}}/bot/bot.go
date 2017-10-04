@@ -63,6 +63,10 @@ func (b *State) messageHandler(s *discordgo.Session, m *discordgo.MessageCreate)
 	if !b.Running {
 		return
 	}
+	// If its not a self bot, then discard own messages.
+	if !b.Selfbot && m.Author.ID == b.user.ID {
+		return
+	}
 	// If message does not start with the prefix, discard.
 	if !strings.HasPrefix(m.Content, b.Prefix) {
 		return

@@ -16,7 +16,6 @@ var (
 
 func main() {
 	botState = bot.GetDefaultState()
-	botState.Selfbot = true
 
 	// Add functionality like so
 	botState.AddCommand(commands.PingCommand{})
@@ -24,7 +23,11 @@ func main() {
 	// inherits everything from the command interface.
 	// See _examples/blank_command.go for a barebones command.
 
-	go botState.Start(os.Getenv("{{cookiecutter.botname}}_token"))
+	err := botState.Start(os.Getenv("{{cookiecutter.botname}}_token"))
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(0)
+	}
 	go systray.Run(onReady, onExit)
 
 	<-make(chan struct{}) // Simple blocking.
